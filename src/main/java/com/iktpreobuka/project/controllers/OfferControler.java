@@ -63,11 +63,11 @@ public class OfferControler {
 				offer.getOfferDescription().equals(newOffer.getOfferDescription())) {
 				ima=true;
 			}
-			if (ima==false) {
-				newOffer.setId((new Random()).nextInt());
-				offers.add(newOffer);
-				return offer;
-			}
+		}
+		if (ima==false) {
+			newOffer.setId((new Random()).nextInt());
+			offers.add(newOffer);
+			return newOffer;
 		}
 		return null;
 	}

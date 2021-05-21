@@ -49,11 +49,11 @@ public class CategoryController {
 			if(category.getName().equals(newCategory.getName()) &&
 				category.getCategory().equals(newCategory.getCategory()))
 				ima=true;	
-			if (ima==false) {
-				newCategory.setId((new Random()).nextInt());
-				categories.add(newCategory);
-				return category;
-				}
+		}
+		if (ima==false) {
+			newCategory.setId((new Random()).nextInt());
+			categories.add(newCategory);
+			return newCategory;
 		}
 		return null;
 		}

@@ -58,14 +58,14 @@ public class UserController {
 		List<UserEntity> users = getDB();	
 		boolean ima = false;
 		for(UserEntity user : users){
-			if(user.getUserName().equals(newUser.getUserName()) &&
+			if(user.getFirstName().equals(newUser.getFirstName()) &&
 					user.getEmail().equals(newUser.getEmail()))
-				ima=true;
-			if(ima==false) {
-				newUser.setId((new Random()).nextInt());
-				users.add(newUser);
-				return user;
-			}
+					ima=true;
+		}
+		if(ima==false) {
+			newUser.setId((new Random()).nextInt());
+			users.add(newUser);
+			return newUser;
 		}
 		return null;
 	}

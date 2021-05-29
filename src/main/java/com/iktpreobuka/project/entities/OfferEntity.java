@@ -1,20 +1,66 @@
 package com.iktpreobuka.project.entities;
 
-import java.time.LocalDate;
-import java.util.Date;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class OfferEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Integer id;
+	@Column(nullable = false,unique=true)
 	protected String offerName;
+	@Column(nullable = false)
 	protected String offerDescription;
+	@Column(nullable = false)
 	protected Date offerCreated;
+	@Column(nullable = false)
 	protected Date offerExpires;
+	@Column(nullable = false)
 	protected Double regularPrice;
 	protected Double actionPrice;
 	protected String imagePath;
 	protected Integer availableOffers;
 	protected Integer boughtOffers;
+	@Column(nullable = false)
 	protected Status offerStatus;
+	
+	@Version
+	private Integer version;
+	
+	
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "category")
+	private CategoryEntity category;
+	
+	
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user")
+	private UserEntity user;
+	
+	//jedna ponuda se može nalaziti na više računa
+	@OneToMany(mappedBy = "offer", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<BillEntity> bills;
+	
 	
 	public OfferEntity() {
 		super();
@@ -37,6 +83,9 @@ public class OfferEntity {
 		this.offerStatus = offerStatus;
 	}
 
+	
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -123,6 +172,22 @@ public class OfferEntity {
 
 	public void setOfferStatus(Status offerStatus) {
 		this.offerStatus = offerStatus;
+	}
+
+	public CategoryEntity getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	

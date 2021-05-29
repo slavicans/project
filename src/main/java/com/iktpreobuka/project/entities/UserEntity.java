@@ -1,13 +1,48 @@
 package com.iktpreobuka.project.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Integer id;
+	@Column(nullable = false)
 	protected String firstName;
+	@Column(nullable = false)
 	protected String lastName;
+	@Column(nullable = false, unique=true)
 	protected String userName;
+	@Column(nullable = false, unique=true)
 	protected String password;
 	protected String email;
 	protected Roles eUserRole;
+	
+	@Version
+	private Integer version;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<OfferEntity> offers;
+	
+	//jedan korisnik može imati više računa
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<BillEntity> bills;
 	
 	public UserEntity() {
 		super();

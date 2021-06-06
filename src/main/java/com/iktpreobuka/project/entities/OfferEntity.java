@@ -60,7 +60,10 @@ public class OfferEntity {
 	@OneToMany(mappedBy = "offer", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<BillEntity> bills;
-	
+	//jedna ponuda se može nalaziti na više vaucera
+		@OneToMany(mappedBy = "offer", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+		@JsonIgnore
+		private List<VoucherEnitity> vouchers;
 	
 	public OfferEntity() {
 		super();

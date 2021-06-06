@@ -8,6 +8,6 @@ import com.iktpreobuka.project.entities.UserEntity;
 
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 
-	UserEntity findByUserName(String username);
-	
+	public UserEntity findByUserName(String username);
+
 }

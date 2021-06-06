@@ -101,7 +101,7 @@ public class OfferControler {
 		return offerRepository.save(offer);
 	}
 
-	//TODO POST - 2.3 dodavanje kategorije i korisnika koji je kreirao ponudu
+	//TODO POST - 2.3 dodavanje kategorije i korisnika koji je kreirao ponudu u offerEntity
 	@RequestMapping(value = "/{categoryId}/seller/{sellerId}",method = RequestMethod.POST)
 	public OfferEntity newOffer2(@RequestBody OfferEntity newOffer, @PathVariable Integer sellerId,
 			@PathVariable Integer categoryId ) {	

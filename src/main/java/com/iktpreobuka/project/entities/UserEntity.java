@@ -44,6 +44,12 @@ public class UserEntity {
 	@JsonIgnore
 	private List<BillEntity> bills;
 	
+	//jedan korisnik može imati više računa
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<VoucherEnitity> vouchers;
+		
+		
 	public UserEntity() {
 		super();
 	}
